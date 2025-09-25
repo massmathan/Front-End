@@ -19,31 +19,25 @@ function SignIn() {
     event.preventDefault(); 
     const form = event.currentTarget;
 
-    // if (form.checkValidity() === false) {
-    //   event.stopPropagation();
-    //   setValidated(true);
-    //   return;
-    // }
 
     setValidated(true);
 
     const user = {
-      email: email,
-      password: password,
-      role : 'user'
-    };
+    username: email,
+    password: password
+  };
 
     try {
-      console.log(user);
-        const response = await axios.post(`http://localhost:8080/existsEmail`,user,{
-             headers: { 'Content-Type': 'application/json' },
-  withCredentials: true 
-        });
+      const response = await axios.post(
+        'http://localhost:8080/api/auth/generateTokens', 
+        user
+      );
       console.log("Server Response:", response.data);
+      localStorage.setItem('accessToken', response.data);
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Error submitting form:", error.response || error);
     }
-  };
+  };  
 
 
   return (

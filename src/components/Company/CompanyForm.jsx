@@ -20,9 +20,15 @@ function CompanyForm() {
     const { id } = useParams(); 
   const navigate = useNavigate();
 
+  const token = localStorage.getItem('accessToken');
+
+
   useEffect(() => {
+    console.log("token:", token);
   if (id) {
-    axios.get(`http://localhost:8080/api/company/get/${id}`)
+    axios.get(`http://localhost:8080/api/company/get/${id}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
       .then(res => {
         const c = res.data;
         setCompanyName(c.companyName);

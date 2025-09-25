@@ -32,15 +32,15 @@ function SignUp() {
     setValidated(true);
 
     const user = {
-      userName: `${firstName} ${lastName}`,
-      email: email,
+      // name: `${firstName} ${lastName}`,
+      userName: email,
       password: confirmPassword,
-      role : 'user'
+      roles : 'user'
     };
 
     try {
       console.log(user);
-      const response = await axios.post("http://localhost:8080/api/user/", user);
+      const response = await axios.post("http://localhost:8080/api/auth/addNewUser", user);
       console.log("Server Response:", response.data);
     } catch (error) {
       console.error("Error submitting form:", error);
